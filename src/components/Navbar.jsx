@@ -22,7 +22,7 @@ const Navbar = () => {
           </div>
 
           <div className='md:flex hidden space-x-6'>
-            <input type="text" placeholder='Search...' className='w-80 h-8 p-3 m-5
+            <input type="text" placeholder='🔍 Search...' className='w-80 h-8 p-3 m-5
             bg-violet-700 active:bg-violet-700 focus:outline-none focus:ring text-white rounded-full placeholder:text-white'/>
           </div>
 
@@ -46,10 +46,18 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {open && (
         <div className="md:hidden px-4 pb-4 space-y-2 bg-white">
+          <div>
+
           <Link to='/' className="text-black block hover:text-amber-600 transition">Home</Link>
           <Link to='/properties' className="block text-black hover:text-amber-600">Properties</Link>
           <Link to='/bookings' className="text-black block hover:text-amber-600 transition">Bookings</Link>
           <Link to='/contact' className="text-black block hover:text-amber-600 transition">Contact</Link>
+          </div>
+
+          <div className='text-center'>
+            <input type="text" placeholder='🔍 Search...' className='w-80 h-8 p-3
+            bg-violet-100 focus:outline-none focus:ring text-black rounded placeholder:text-black'/>
+          </div>
         </div>
       )}
     </nav>
