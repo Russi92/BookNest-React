@@ -367,12 +367,20 @@ import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import formatCurrency from '../formatCurrency';
+import { useSearch } from '../context/SearchContext'
 
 const Properties = () => {
   const [allProperties, setAllProperties] = useState([]);
+  const { searchTerm } = useSearch();
   const [visibleCount, setVisibleCount] = useState(30);
   const [isLoading, setIsLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true); // ✅ تحميل أولي
+
+  const highlightMatch = (text, keyword) => {
+    if (!keyword) return text;
+    const regex = new RegExp(`(${keyword})`, 'gi');
+    return text?.replace(regex, '<mark class="bg-yellow-300">$1</mark>');
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -411,7 +419,13 @@ const Properties = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isLoading, visibleCount, allProperties.length]);
 
-  const visibleProperties = allProperties.slice(0, visibleCount);
+  const filteredProperties = allProperties.filter(p => {
+    const text = `${p.title || p.name} ${p.description} ${p.location}`.toLowerCase();
+    return text.includes(searchTerm.toLowerCase());
+  });
+  
+  const visibleProperties = filteredProperties.slice(0, visibleCount);
+
 
   return (
     <div className="p-4">
@@ -465,9 +479,14 @@ const Properties = () => {
                     ))}
                   </Swiper>
                 )}
-                <h2 className="text-xl font-semibold mt-2">
-                  {property.title || property.name}
-                </h2>
+                <h2
+                  className="text-xl font-semibold mt-2"
+                  dangerouslySetInnerHTML={{ __html: highlightMatch(property.title || property.name, searchTerm) }}
+                />
+
+                <p dangerouslySetInnerHTML={{ __html: highlightMatch(property.description, searchTerm) }} />
+                <p dangerouslySetInnerHTML={{ __html: highlightMatch(property.location, searchTerm) }} />
+
                 <p><span className='font-bold'>Description</span> : {property.description}</p>
                 <p><span className='font-bold'>Location</span> : {property.location}</p>
                 <p className="mt-1 font-medium text-sm">
