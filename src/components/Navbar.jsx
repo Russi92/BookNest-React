@@ -28,7 +28,7 @@ const Navbar = () => {
          
 
           {/* Logo */}
-          <div className='flex'>
+          <div className='flex items-center'>
 
           <div className='md:flex hidden space-x-6'>
           <input
@@ -40,7 +40,7 @@ const Navbar = () => {
           </div>
 
           <Link to='/' className="flex-shrink-0 flex items-center text-xl font-bold text-white">
-            BookNest
+          <img src="../../public/logo.png" alt="" className='w-32'/>
           </Link>
           </div>
 
