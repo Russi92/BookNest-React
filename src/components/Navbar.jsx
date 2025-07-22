@@ -40,7 +40,7 @@ const Navbar = () => {
           </div>
 
           <Link to='/' className="flex-shrink-0 flex items-center text-xl font-bold text-white">
-          <img src="../../public/logo.png" alt="" className='w-32'/>
+          <img src="/logo.png" alt="" className='w-32'/>
           </Link>
           </div>
 
