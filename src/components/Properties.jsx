@@ -390,7 +390,7 @@ import axios from 'axios';
 const Properties = () => {
   const [allProperties, setAllProperties] = useState([]);
   const { searchTerm } = useSearch();
-  const [visibleCount, setVisibleCount] = useState(50);
+  const [visibleCount, setVisibleCount] = useState(30);
   const [isLoading, setIsLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
@@ -729,17 +729,18 @@ const Properties = () => {
                         >
                           {imagesArray.map((src, imgIndex) => (
                             <SwiperSlide key={imgIndex}>
-                              <img
-                                src={src}
-                                alt={`${property.title || property.name} - Image ${
-                                  imgIndex + 1
-                                }`}
-                                className="w-full h-48 object-cover"
-                                onError={(e) => {
-                                  e.target.src =
-                                    'https://via.placeholder.com/300x200?text=Image+Not+Available';
-                                }}
-                              />
+                              {<img
+                            src={src}
+                            alt={`${property.title || property.name} - Image ${imgIndex + 1}`}
+                            className="w-full h-48 object-cover"
+                            onError={(e) => {
+                              // قم بتغيير هذا السطر
+                              e.target.src = 'https://placehold.co/300x200?text=Image+Not+Available';
+                              // أو:
+                              // e.target.src = 'https://dummyimage.com/300x200/000/fff&text=Image+Not+Available';
+                            }}
+                          />}
+                              
                             </SwiperSlide>
                           ))}
                         </Swiper>
